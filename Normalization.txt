@@ -1,0 +1,83 @@
+
+#include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
+#include <ctype.h>
+//functions.h
+
+void printvector(double vector[],int amount);
+void normalize(double vector[], int n);
+
+int main()
+{
+
+int amount; //this variable is for declaring the amount of items in the vector
+bool flag = true; // this is used for terminating the program
+
+while (flag) //this will run, as lng as the flag value is true
+{
+scanf("%d", &amount);
+double vector[amount]; //this is where I make a list for the vector with size of the amount 
+
+if (amount < 0 || amount > 9)
+{ //if the amount of items is greater than 9 or less than 0
+  printf("BAD INPUT \n"); //this is bad input
+  while (getchar() != '\n'); // remove rest of elements of the list
+  }
+
+ 
+else if (amount == 0 || amount == EOF){
+  flag = false; //if amount is 0 or EOF, set flag to false to terminate the code
+}
+else{ // otherwise, carry on with the program
+
+int counter = 0; // make a counter
+for (int i = 0; i <= amount-1; i++){ // this is where I go through the amount of items
+        scanf("%lf",&vector[i]); //This where I make input for the vector depending on the amount of items there are
+        counter = counter + 1; // increment counter
+        if (amount == counter) //if amount and counter are the same
+        {
+        while (getchar() != '\n'); //remove the rest of the items in the list
+        }
+}
+printf("VECTOR: ");
+printvector(vector,amount); //call printvector function
+
+printf(" NORMALIZED:");
+normalize(vector,amount); //call normalize function
+
+}
+}
+}
+
+
+
+
+
+void printvector(double vector[], int amount) //the purpose of this function is to print the vector that the user enters, the parameters are the vector elements as an array, and the amount of items in the vector as an integer value
+{
+printf("[");
+for (int i = 0; i < amount; i++){ //go through the size of the vector
+  printf(" %lf, ",vector[i]); //print all the elements of the list
+}
+printf("]");
+}
+
+
+
+
+void normalize(double vector[], int amount) // the purpose of this function is to normalize the vector that the user inputs. The parameters are the vector as an array, and the amount of items in the vector as an integer value
+{
+float sumsquare = 0; //this is for getting the sum of the values in the vector squared
+for (int i = 0; i < amount; i++){ // go through the vector
+  sumsquare += (vector[i]*vector[i]); //this is where the sum of the elements squared is acquired
+  
+}
+float norm = sqrt(sumsquare); // this is how you get the norm of a vector
+printf("[");
+for (int i = 0; i<amount; i++){ //go through the vector again
+  vector[i] = vector[i]*(1/norm); //this is how you normalize the vector
+  printf(" %lf, ",vector[i]); //print the normalized vector
+}
+printf("]");
+}
